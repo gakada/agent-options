@@ -1,0 +1,23 @@
+{
+  "name": "agent-options",
+  "version": "1.0.0",
+  "description": "Custom tls.connect options for https.Agent",
+  "license": "MIT",
+  "repository": "gakada/agent-options",
+  "scripts": {
+    "test": "standard --fix && node test/test"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "tls",
+    "https",
+    "agent",
+    "sni"
+  ],
+  "devDependencies": {
+    "got": "*",
+    "standard": "*"
+  }
+}

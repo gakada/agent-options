@@ -1,11 +1,11 @@
 {
   "name": "agent-options",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Custom tls.connect options for https.Agent",
   "license": "MIT",
   "repository": "gakada/agent-options",
   "scripts": {
-    "test": "standard --fix && node test/test"
+    "test": "standard --fix && xo && ava"
   },
   "files": [
     "index.js"
@@ -17,7 +17,13 @@
     "sni"
   ],
   "devDependencies": {
-    "got": "*",
-    "standard": "*"
+    "ava": "^1.0.0-beta.3",
+    "got": "^8.2.0",
+    "standard": "^11.0.0",
+    "xo": "^0.20.3"
+  },
+  "xo": {
+    "semicolon": false,
+    "space": true
   }
 }

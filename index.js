@@ -1,15 +1,16 @@
 const https = require('https')
 
-const makeAgent = options => {
-  const agent = new https.Agent(options)
-  const createConnection = agent.createConnection
-  agent.createConnection = function (options2) {
-    if (typeof options2 === 'object') {
-      for (const key in options) {
-        options2[key] = options[key]
+const makeAgent = (agentOptions, connectOptions) => {
+  connectOptions = connectOptions || agentOptions
+  const agent = new https.Agent(agentOptions)
+  if (typeof connectOptions === 'object') {
+    const createConnection = agent.createConnection
+    agent.createConnection = function (options) {
+      if (typeof options === 'object') {
+        Object.assign(options, connectOptions)
       }
+      return createConnection.apply(this, arguments)
     }
-    return createConnection.apply(this, arguments)
   }
   return agent
 }

@@ -12,7 +12,8 @@ $ npm i agent-options
 
 # Usage
 
-`makeAgent(options)` returns [`https.Agent`](https://nodejs.org/api/https.html#https_class_https_agent) created with given `options` and ensures that those `options` are used for [`tls.connect`](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback) as well.
+* `makeAgent(agentOptions)` returns [`https.Agent`](https://nodejs.org/api/https.html#https_class_https_agent) created with given `agentOptions` and ensures that those `agentOptions` are used for [`tls.connect`](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback) as well (in a sense of [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)).
+* `makeAgent(agentOptions, connectOptions)` uses `agentOptions` for [`https.Agent`](https://nodejs.org/api/https.html#https_class_https_agent) (as is) and `connectOptions` for [`tls.connect`](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback) (again, with [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)).
 
 ## Examples
 
@@ -25,7 +26,7 @@ const makeAgent = require('agent-options')
 const options = {
   host: 'example.com',
   port: 443,
-  path: '/...',
+  path: '/',
   agent: makeAgent({ servername: null })
 }
 
@@ -45,13 +46,13 @@ req.on('error', err => {
 req.end()
 ```
 
-Using [got](https://github.com/sindresorhus/got):
+Same using [got](https://github.com/sindresorhus/got):
 
 ```js
 const got = require('got')
 const makeAgent = require('agent-options')
 
-got('https://example.com/...', { agent: makeAgent({ servername: null }) }).then(res => {
+got('example.com', { agent: makeAgent({ servername: null }) }).then(res => {
   // ...
 }).catch(err => {
   // ...
@@ -60,5 +61,4 @@ got('https://example.com/...', { agent: makeAgent({ servername: null }) }).then(
 
 # Issues
 
-* Separate `https.Agent` and `tls.connect` options?
 * Support agents other than `https.Agent`?
